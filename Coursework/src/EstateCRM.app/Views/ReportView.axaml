@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EstateCRM.App.Views.ReportView" x:CompileBindings="False">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Margin="20,14,20,20" Spacing="14" MaxWidth="900" HorizontalAlignment="Stretch">
+      <TextBlock Classes="heading" Text="Сводка по сделкам"/>
+      <TextBlock Text="Укажите период. В сводку входят сделки за обе указанные даты." TextWrapping="Wrap" Classes="muted"/>
+      <Border Background="{StaticResource PanelBackground}" Padding="16" CornerRadius="8">
+        <StackPanel Spacing="10">
+          <TextBlock Text="Период сделок" FontWeight="SemiBold" FontSize="17"/>
+          <WrapPanel>
+            <StackPanel Width="180" Margin="0,0,12,8" Spacing="4">
+              <TextBlock Text="С даты (дд.мм.гггг)"/>
+              <TextBox x:Name="FromBox" MaxLength="10" PlaceholderText="дд.мм.гггг"/>
+            </StackPanel>
+            <StackPanel Width="180" Margin="0,0,12,8" Spacing="4">
+              <TextBlock Text="По дату (дд.мм.гггг)"/>
+              <TextBox x:Name="ToBox" MaxLength="10" PlaceholderText="дд.мм.гггг"/>
+            </StackPanel>
+          </WrapPanel>
+          <Button x:Name="BuildButton" Content="Показать сводку" Classes="accent" HorizontalAlignment="Left" Click="BuildClick"/>
+        </StackPanel>
+      </Border>
+      <ProgressBar x:Name="LoadingBar" IsIndeterminate="True" IsVisible="False" Height="4"/>
+      <TextBlock x:Name="MessageText" TextWrapping="Wrap" IsVisible="False"/>
+      <Border x:Name="ResultPanel" Background="{StaticResource PanelBackground}" Padding="16" CornerRadius="8" IsVisible="False">
+        <StackPanel Spacing="10">
+          <TextBlock x:Name="PeriodText" FontWeight="SemiBold" FontSize="17" TextWrapping="Wrap"/>
+          <TextBlock x:Name="CountText" FontSize="16" TextWrapping="Wrap"/>
+          <TextBlock x:Name="AmountText" FontSize="16" TextWrapping="Wrap"/>
+          <TextBlock x:Name="CommissionText" FontSize="16" TextWrapping="Wrap"/>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

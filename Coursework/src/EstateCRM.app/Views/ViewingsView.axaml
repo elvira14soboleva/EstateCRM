@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ x:Class="EstateCRM.App.Views.ViewingsView" x:CompileBindings="False">
+ <Grid RowDefinitions="Auto,Auto,*" Margin="20,14,20,10" Background="{StaticResource MainBackground}">
+  <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+   <TextBlock Classes="heading" Text="Подбор и просмотры" VerticalAlignment="Center"/>
+   <Button Grid.Column="1" x:Name="RefreshButton" Content="Обновить" Click="RefreshClick"/>
+  </Grid>
+  <StackPanel Grid.Row="1" Spacing="5">
+   <TextBlock x:Name="MessageText" IsVisible="False" TextWrapping="Wrap"/>
+   <ProgressBar x:Name="LoadingBar" Height="4" IsIndeterminate="True" IsVisible="False"/>
+   <TextBlock x:Name="CountText" Classes="muted" Text="Загрузка…"/>
+  </StackPanel>
+  <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,8,0,0">
+   <StackPanel Spacing="10">
+    <Expander Header="Подбор объекта и назначение просмотра" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+     <Border Background="{StaticResource PanelBackground}" Padding="14" CornerRadius="8">
+      <StackPanel x:Name="MatchPanel" Spacing="8">
+       <TextBlock Text="1. Выберите активную заявку" FontWeight="SemiBold"/>
+       <ComboBox x:Name="RequestBox" HorizontalAlignment="Stretch" SelectionChanged="RequestChanged"/>
+       <TextBlock x:Name="RequestHint" Classes="muted" Text="Условия заявки появятся после выбора." TextWrapping="Wrap"/>
+       <Button Content="Найти подходящие объекты" Click="MatchClick" HorizontalAlignment="Left"/>
+       <TextBlock Text="2. Выберите найденный объект" FontWeight="SemiBold"/>
+       <ComboBox x:Name="PropertyBox" HorizontalAlignment="Stretch"/>
+       <TextBlock x:Name="MatchHint" Classes="muted" Text="Подбор учитывает тип, вид сделки, цену, район, площадь и комнаты." TextWrapping="Wrap"/>
+       <TextBlock Text="3. Введите дату и время просмотра" FontWeight="SemiBold"/>
+       <WrapPanel>
+        <TextBox x:Name="DateTimeBox" Width="210" PlaceholderText="дд.мм.гггг чч:мм" Margin="0,0,10,8"/>
+        <Button x:Name="CreateButton" Content="Назначить просмотр" Classes="accent" Click="CreateClick" Margin="0,0,0,8"/>
+       </WrapPanel>
+       <TextBlock Classes="muted" Text="Длительность просмотра — 30 минут." TextWrapping="Wrap"/>
+      </StackPanel>
+     </Border>
+    </Expander>
+    <Expander Header="Результат или отмена просмотра" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+     <Border Background="{StaticResource PanelBackground}" Padding="14" CornerRadius="8">
+      <StackPanel x:Name="StatusPanel" Spacing="8">
+       <TextBlock Text="Запланированный просмотр" FontWeight="SemiBold"/>
+       <ComboBox x:Name="ScheduledBox" HorizontalAlignment="Stretch"/>
+       <TextBlock Text="Комментарий (необязательно, до 500 символов)"/>
+       <TextBox x:Name="CommentBox" MaxLength="500" AcceptsReturn="True" Height="72" TextWrapping="Wrap"/>
+       <WrapPanel>
+        <Button x:Name="CompleteButton" Content="Отметить проведённым" Classes="accent" Click="CompleteClick" Margin="0,0,10,8"/>
+        <Button x:Name="CancelButton" Content="Отменить просмотр" Click="CancelClick" Margin="0,0,0,8"/>
+       </WrapPanel>
+       <TextBlock Classes="muted" Text="Отменить запланированный просмотр могут все роли." TextWrapping="Wrap"/>
+      </StackPanel>
+     </Border>
+    </Expander>
+    <TextBlock Classes="title" Text="Все просмотры"/>
+    <ItemsControl x:Name="ViewingList">
+     <ItemsControl.ItemTemplate>
+      <DataTemplate>
+       <Border Background="{StaticResource PanelBackground}" Padding="14" Margin="0,0,0,10" CornerRadius="8">
+        <StackPanel Spacing="5"><TextBlock Text="{Binding Header}" Classes="title" TextWrapping="Wrap"/>
+         <TextBlock Text="{Binding Details}" TextWrapping="Wrap"/></StackPanel>
+       </Border>
+      </DataTemplate>
+     </ItemsControl.ItemTemplate>
+    </ItemsControl>
+   </StackPanel>
+  </ScrollViewer>
+ </Grid>
+</UserControl>

@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EstateCRM.App.Views.LoginView">
+  <Grid Background="#EEF3F8">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+      <Border Width="420" Margin="24" Padding="32" Background="White"
+              CornerRadius="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Spacing="16">
+          <Image Source="avares://EstateCRM.App/Assets/logo.png" Width="64" Height="64"
+                 HorizontalAlignment="Center"/>
+          <TextBlock Text="Вход в EstateCRM" FontSize="24" FontWeight="SemiBold"
+                     Foreground="#1E5AA8" HorizontalAlignment="Center"/>
+          <TextBlock Text="Введите данные учётной записи сотрудника."
+                     Foreground="#64748B" TextWrapping="Wrap" TextAlignment="Center"/>
+          <StackPanel Spacing="6">
+            <TextBlock Text="Логин"/>
+            <TextBox x:Name="LoginBox" PlaceholderText="Введите логин" MaxLength="30"/>
+          </StackPanel>
+          <StackPanel Spacing="6">
+            <TextBlock Text="Пароль"/>
+            <TextBox x:Name="PasswordBox" PlaceholderText="Введите пароль" PasswordChar="●"/>
+          </StackPanel>
+          <TextBlock x:Name="ErrorText" Foreground="#DC2626" TextWrapping="Wrap" IsVisible="False"/>
+          <ProgressBar x:Name="LoginProgress" Height="3" IsIndeterminate="True" IsVisible="False"/>
+          <Button x:Name="SignInButton" Content="Войти" Classes="accent"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                  IsDefault="True" Click="SignInClick"/>
+          <TextBlock Text="Если нет доступа, обратитесь к администратору."
+                     FontSize="12" Foreground="#64748B" TextWrapping="Wrap" TextAlignment="Center"/>
+        </StackPanel>
+      </Border>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

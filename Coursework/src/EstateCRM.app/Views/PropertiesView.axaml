@@ -1,0 +1,360 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EstateCRM.App.Views"
+    x:Class="EstateCRM.App.Views.PropertiesView"
+    x:CompileBindings="False">
+
+    <UserControl.Resources>
+        <local:CatalogPhotoConverter x:Key="CatalogPhoto"/>
+    </UserControl.Resources>
+
+    <Grid
+        RowDefinitions="Auto,Auto,Auto,*"
+        Background="{StaticResource MainBackground}"
+        Margin="20,14,12,0">
+
+        <!-- Заголовок каталога -->
+
+        <Grid
+            ColumnDefinitions="*,Auto"
+            Margin="0,0,8,10">
+
+            <StackPanel Spacing="4">
+
+                <TextBlock
+                    Text="Объекты недвижимости"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    TextWrapping="Wrap"/>
+
+                <TextBlock
+                    Text="Данные из EstateCRM · каталог в режиме просмотра"
+                    Foreground="{StaticResource MutedBrush}"
+                    TextWrapping="Wrap"/>
+
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                x:Name="RefreshButton"
+                Content="Обновить"
+                VerticalAlignment="Center"
+                Margin="12,0,0,0"
+                Click="ApplyClick"/>
+
+        </Grid>
+
+        <!-- Компактная сворачиваемая панель -->
+
+        <Expander
+            Grid.Row="1"
+            Header="Фильтры и сортировка"
+            IsExpanded="False"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            Background="{StaticResource PanelBackground}"
+            Margin="0,0,8,10">
+
+            <Expander.Styles>
+
+                <Style Selector="TextBox">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="MinHeight" Value="32"/>
+                    <Setter Property="Padding" Value="8,4"/>
+                </Style>
+
+                <Style Selector="ComboBox">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="MinHeight" Value="32"/>
+                    <Setter Property="Padding" Value="8,4"/>
+                </Style>
+
+                <Style Selector="Button">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="MinHeight" Value="32"/>
+                    <Setter Property="Padding" Value="12,5"/>
+                </Style>
+
+            </Expander.Styles>
+
+            <Border Padding="10">
+
+                <ScrollViewer
+                    MaxHeight="240"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <StackPanel x:Name="FilterPanel">
+
+                        <WrapPanel>
+
+                            <TextBox
+                                x:Name="SearchBox"
+                                Width="240"
+                                MaxLength="200"
+                                PlaceholderText="Поиск по адресу"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,8,8"/>
+
+                            <StackPanel
+                                Width="160"
+                                Spacing="3"
+                                Margin="0,0,8,8">
+
+                                <TextBlock
+                                    Text="Тип объекта"
+                                    FontSize="12"/>
+
+                                <ComboBox
+                                    x:Name="TypeBox"
+                                    HorizontalAlignment="Stretch"/>
+
+                            </StackPanel>
+
+                            <StackPanel
+                                Width="170"
+                                Spacing="3"
+                                Margin="0,0,8,8">
+
+                                <TextBlock
+                                    Text="Район"
+                                    FontSize="12"/>
+
+                                <ComboBox
+                                    x:Name="DistrictBox"
+                                    HorizontalAlignment="Stretch"/>
+
+                            </StackPanel>
+
+                            <StackPanel Width="160" Spacing="3" Margin="0,0,8,8">
+                                <TextBlock Text="Статус" FontSize="12"/>
+                                <ComboBox x:Name="StatusBox" HorizontalAlignment="Stretch"/>
+                            </StackPanel>
+
+                            <StackPanel
+                                Width="180"
+                                Spacing="3"
+                                Margin="0,0,8,8">
+
+                                <TextBlock
+                                    Text="Вид сделки"
+                                    FontSize="12"/>
+
+                                <ComboBox
+                                    x:Name="DealBox"
+                                    HorizontalAlignment="Stretch"/>
+
+                            </StackPanel>
+
+                            <StackPanel
+                                Width="220"
+                                Spacing="3"
+                                Margin="0,0,8,8">
+
+                                <TextBlock
+                                    Text="Сортировка"
+                                    FontSize="12"/>
+
+                                <ComboBox
+                                    x:Name="SortBox"
+                                    SelectedIndex="0"
+                                    HorizontalAlignment="Stretch">
+
+                                    <ComboBoxItem
+                                        Content="По номеру объекта"/>
+
+                                    <ComboBoxItem
+                                        Content="Цена: сначала дешевле"/>
+
+                                    <ComboBoxItem
+                                        Content="Цена: сначала дороже"/>
+
+                                    <ComboBoxItem
+                                        Content="Площадь: сначала меньше"/>
+
+                                    <ComboBoxItem
+                                        Content="Площадь: сначала больше"/>
+
+                                    <ComboBoxItem
+                                        Content="Сначала новые"/>
+
+                                </ComboBox>
+
+                            </StackPanel>
+
+                            <TextBox
+                                x:Name="MinPriceBox"
+                                Width="130"
+                                PlaceholderText="Цена от, ₽"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,8,8"/>
+
+                            <TextBox
+                                x:Name="MaxPriceBox"
+                                Width="130"
+                                PlaceholderText="Цена до, ₽"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,8,8"/>
+
+                            <Button
+                                Content="Применить"
+                                Classes="accent"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,8,8"
+                                Click="ApplyClick"/>
+
+                            <Button
+                                Content="Сбросить"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,8"
+                                Click="ResetClick"/>
+
+                        </WrapPanel>
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </Border>
+
+        </Expander>
+
+        <!-- Количество объектов и сообщения -->
+
+        <StackPanel
+            Grid.Row="2"
+            Spacing="6"
+            Margin="0,0,8,10">
+
+            <TextBlock
+                x:Name="CountText"
+                Text="Каталог ещё не загружен"
+                Foreground="{StaticResource MutedBrush}"/>
+
+            <ProgressBar
+                x:Name="LoadingBar"
+                Height="3"
+                IsIndeterminate="True"
+                IsVisible="False"/>
+
+            <Border
+                x:Name="MessagePanel"
+                Padding="12"
+                Background="{StaticResource PanelBackground}"
+                CornerRadius="6"
+                IsVisible="False">
+
+                <TextBlock
+                    x:Name="MessageText"
+                    TextWrapping="Wrap"/>
+
+            </Border>
+
+        </StackPanel>
+
+        <!-- Карточки объектов -->
+
+        <ScrollViewer
+            Grid.Row="3"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+
+            <ItemsControl x:Name="CardsList">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            Width="320"
+                            Padding="12"
+                            Margin="0,0,16,16"
+                            CornerRadius="8"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
+                            Background="{StaticResource MainBackground}">
+
+                            <StackPanel Spacing="8">
+
+                                <Grid
+                                    Height="140"
+                                    Background="{StaticResource PanelBackground}"
+                                    ClipToBounds="True">
+
+                                    <TextBlock
+                                        Text="Фотография не добавлена"
+                                        Foreground="{StaticResource MutedBrush}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+
+                                    <Image
+                                        Source="{Binding PhotoPath, Converter={StaticResource CatalogPhoto}}"
+                                        Stretch="UniformToFill"/>
+
+                                </Grid>
+
+                                <TextBlock
+                                    Text="{Binding NumberText}"
+                                    FontSize="11"
+                                    Foreground="{StaticResource MutedBrush}"/>
+
+                                <TextBlock
+                                    Text="{Binding CategoryText}"
+                                    Foreground="{StaticResource AccentBrush}"
+                                    TextWrapping="Wrap"/>
+
+                                <TextBlock
+                                    Text="{Binding Address}"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    TextWrapping="Wrap"/>
+
+                                <TextBlock
+                                    Text="{Binding DistrictName}"
+                                    Foreground="{StaticResource MutedBrush}"
+                                    TextWrapping="Wrap"/>
+
+                                <TextBlock
+                                    Text="{Binding FactsText}"
+                                    TextWrapping="Wrap"/>
+
+                                <TextBlock
+                                    Text="{Binding StatusName}"
+                                    FontSize="12"
+                                    Foreground="{StaticResource MutedBrush}"
+                                    TextWrapping="Wrap"/>
+
+                                <TextBlock
+                                    Text="{Binding PriceText}"
+                                    FontSize="22"
+                                    FontWeight="SemiBold"
+                                    TextWrapping="Wrap"/>
+
+                                <Button
+                                    Content="Подробнее"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    Click="DetailsClick"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</UserControl>

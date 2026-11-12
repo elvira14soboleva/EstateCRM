@@ -1,0 +1,219 @@
+<Application
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fluent="clr-namespace:Avalonia.Themes.Fluent;assembly=Avalonia.Themes.Fluent"
+    x:Class="EstateCRM.App.App"
+    RequestedThemeVariant="Light">
+
+    <Application.Resources>
+
+        <!-- Цвета из пояснительной записки -->
+
+        <SolidColorBrush
+            x:Key="MainBackground"
+            Color="#FFFFFF"/>
+
+        <SolidColorBrush
+            x:Key="PanelBackground"
+            Color="#EEF3F8"/>
+
+        <SolidColorBrush
+            x:Key="AccentBrush"
+            Color="#1E5AA8"/>
+
+        <SolidColorBrush
+            x:Key="AccentHoverBrush"
+            Color="#174A8B"/>
+
+        <SolidColorBrush
+            x:Key="WarningBrush"
+            Color="#B45309"/>
+
+        <SolidColorBrush
+            x:Key="TextBrush"
+            Color="#1F2937"/>
+
+        <SolidColorBrush
+            x:Key="ErrorBrush"
+            Color="#DC2626"/>
+
+        <SolidColorBrush
+            x:Key="SuccessBrush"
+            Color="#16A34A"/>
+
+        <!-- Нейтральные границы и вторичный текст -->
+
+        <SolidColorBrush
+            x:Key="BorderBrush"
+            Color="#EEF3F8"/>
+
+        <SolidColorBrush
+            x:Key="MutedBrush"
+            Color="#1F2937"
+            Opacity="0.75"/>
+
+    </Application.Resources>
+
+    <Application.Styles>
+
+        <!-- Светлая тема и синий акцент вместо системного розового -->
+
+        <fluent:FluentTheme>
+            <fluent:FluentTheme.Palettes>
+                <fluent:ColorPaletteResources
+                    x:Key="Light"
+                    Accent="#1E5AA8"/>
+            </fluent:FluentTheme.Palettes>
+        </fluent:FluentTheme>
+
+        <!-- Общие настройки окон и страниц -->
+
+        <Style Selector="Window">
+            <Setter Property="Background"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="FontSize"
+                    Value="14"/>
+        </Style>
+
+        <Style Selector="UserControl">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="FontSize"
+                    Value="14"/>
+        </Style>
+
+        <!-- Поля ввода -->
+
+        <Style Selector="TextBox">
+            <Setter Property="Background"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource BorderBrush}"/>
+            <Setter Property="CaretBrush"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="MinHeight"
+                    Value="40"/>
+            <Setter Property="Padding"
+                    Value="10,8"/>
+            <Setter Property="CornerRadius"
+                    Value="6"/>
+        </Style>
+
+        <!-- Выпадающие списки -->
+
+        <Style Selector="ComboBox">
+            <Setter Property="Background"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource BorderBrush}"/>
+            <Setter Property="MinHeight"
+                    Value="40"/>
+        </Style>
+
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+        </Style>
+
+        <!-- Обычные кнопки: навигация, сброс, проверка БД -->
+
+        <Style Selector="Button">
+            <Setter Property="Background"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextBrush}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource BorderBrush}"/>
+            <Setter Property="Padding"
+                    Value="14,8"/>
+            <Setter Property="MinHeight"
+                    Value="38"/>
+            <Setter Property="CornerRadius"
+                    Value="6"/>
+        </Style>
+
+        <!-- Основные кнопки с Classes="accent" -->
+
+        <Style Selector="Button.accent">
+            <Setter Property="Background"
+                    Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource AccentBrush}"/>
+        </Style>
+
+        <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background"
+                    Value="{StaticResource AccentHoverBrush}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource MainBackground}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource AccentHoverBrush}"/>
+        </Style>
+
+        <Style Selector="Button.accent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background"
+                    Value="{StaticResource AccentHoverBrush}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource MainBackground}"/>
+        </Style>
+
+        <!-- Отключённые кнопки остаются читаемыми -->
+
+        <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background"
+                    Value="{StaticResource PanelBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource MutedBrush}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource BorderBrush}"/>
+        </Style>
+
+        <Style Selector="Button.accent:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background"
+                    Value="{StaticResource PanelBackground}"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource MutedBrush}"/>
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource BorderBrush}"/>
+        </Style>
+
+        <!-- Текстовые стили -->
+
+        <Style Selector="TextBlock.heading">
+            <Setter Property="FontSize"
+                    Value="24"/>
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource AccentBrush}"/>
+        </Style>
+
+        <Style Selector="TextBlock.title">
+            <Setter Property="FontSize"
+                    Value="18"/>
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+            <Setter Property="Foreground"
+                    Value="{StaticResource AccentBrush}"/>
+        </Style>
+
+        <Style Selector="TextBlock.muted">
+            <Setter Property="Foreground"
+                    Value="{StaticResource MutedBrush}"/>
+        </Style>
+
+        <Style Selector="TextBlock.error">
+            <Setter Property="Foreground"
+                    Value="{StaticResource ErrorBrush}"/>
+        </Style>
+
+    </Application.Styles>
+</Application>

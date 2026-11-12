@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EstateCRM.App.Views.DealsView" x:CompileBindings="False">
+  <Grid RowDefinitions="Auto,*" Margin="20,14,20,10" Background="{StaticResource MainBackground}">
+    <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+      <TextBlock Classes="heading" Text="Сделки" VerticalAlignment="Center"/>
+      <Button Grid.Column="1" x:Name="RefreshButton" Content="Обновить" Click="RefreshClick"/>
+    </Grid>
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Spacing="8">
+      <Expander Header="Оформить сделку" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <Border Background="{StaticResource PanelBackground}" Padding="14" CornerRadius="8">
+          <StackPanel x:Name="FormPanel" Spacing="8">
+            <TextBlock Text="Проведённый просмотр без сделки" FontWeight="SemiBold"/>
+            <ComboBox x:Name="ViewingBox" HorizontalAlignment="Stretch" SelectionChanged="ViewingChanged"/>
+            <TextBlock x:Name="ViewingHint" Classes="muted" Text="Выберите просмотр. Процент берётся из вида сделки объекта." TextWrapping="Wrap"/>
+            <WrapPanel>
+              <StackPanel Width="160" Margin="0,0,10,8"><TextBlock Text="Дата (дд.мм.гггг)"/><TextBox x:Name="DateBox" PlaceholderText="дд.мм.гггг"/></StackPanel>
+              <StackPanel Width="210" Margin="0,0,10,8"><TextBlock Text="Номер договора"/><TextBox x:Name="NumberBox" MaxLength="30"/></StackPanel>
+              <StackPanel Width="210" Margin="0,0,10,8"><TextBlock Text="Сумма сделки, ₽"/><TextBox x:Name="AmountBox" PlaceholderText="Например, 1000000,00"/></StackPanel>
+            </WrapPanel>
+            <TextBlock Text="Путь к файлу договора (до 260 символов)"/>
+            <TextBox x:Name="FileBox" MaxLength="260" PlaceholderText="Например, contracts/Договор.pdf"/>
+            <TextBlock Classes="muted" Text="Сохраняется только путь, файл не загружается. При сохранении объект станет проданным или сданным, а заявка закроется." TextWrapping="Wrap"/>
+            <Button x:Name="SaveButton" Classes="accent" Content="Сохранить сделку" Click="SaveClick" HorizontalAlignment="Left"/>
+          </StackPanel>
+        </Border>
+      </Expander>
+      <Expander Header="Изменить дату сделки (администратор)" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <Border Background="{StaticResource PanelBackground}" Padding="14" CornerRadius="8">
+          <StackPanel x:Name="AdminPanel" Spacing="8">
+            <TextBlock Text="Выберите сделку"/>
+            <ComboBox x:Name="AdminDealBox" HorizontalAlignment="Stretch"/>
+            <WrapPanel>
+              <TextBox x:Name="AdminDateBox" Width="170" PlaceholderText="дд.мм.гггг" Margin="0,0,10,8"/>
+              <Button x:Name="AdminDateButton" Content="Изменить дату" Click="ChangeDateClick" Margin="0,0,0,8"/>
+            </WrapPanel>
+            <TextBlock Classes="muted" Text="Действие доступно только администратору."/>
+          </StackPanel>
+        </Border>
+      </Expander>
+      <TextBlock x:Name="MessageText" TextWrapping="Wrap" IsVisible="False"/>
+      <TextBlock x:Name="CountText" Classes="muted" Text="Загрузка…"/>
+      <ProgressBar x:Name="LoadingBar" IsIndeterminate="True" IsVisible="False" Height="4"/>
+      <ItemsControl x:Name="DealsList">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="{StaticResource PanelBackground}" Padding="14" Margin="0,0,0,10" CornerRadius="8">
+              <StackPanel Spacing="5">
+                <TextBlock Text="{Binding Header}" Classes="title" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Details}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Money}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding FileText}" Classes="muted" TextWrapping="Wrap"/>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

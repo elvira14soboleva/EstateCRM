@@ -1,0 +1,1 @@
+Server=.\SQLEXPRESS02;Database=EstateCRM;Trusted_Connection=True;TrustServerCertificate=True;Connect Timeout=15
